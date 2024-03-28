@@ -14,6 +14,7 @@ struct User {
 struct User users[MAX_USERS];
 int numUsers = 0;
 
+// CUSTOMER-SIDE ----------------------------------------------------
 // Dummy function for customerpage
 void customerPage(char username[]) {
     printf("Welcome, %s\n", username);
@@ -33,8 +34,12 @@ void signIn() {
         if (strcmp(users[i].username, username) == 0 && strcmp(users[i].password, password) == 0) {
             printf("\nLogin successful!\n");
             customerPage(username);
+            return;
         }
     }
+
+    printf("\n Login failed...");
+    return;
 }
 
 void signUp() {
@@ -67,28 +72,30 @@ void signUp() {
 void customerLogin() {
     int choice;
     
-    printf("\n>Selection Screen>Customer Login");
-    printf("\n\n[1] Sign-up");
-    printf("\n[2] Sign-in");
-    
-    printf("\n\nEnter choice: ");
-    scanf("%d", &choice);
-    
-    switch (choice) {
-        case 1:
-            signUp();
-            break;
-        case 2:
-            signIn();
-            break;
-        default:
-            printf("Invalid choice. Try again...");
+    while (1) {
+        printf("\n>Selection Screen>Customer Login");
+        printf("\n\n[1] Sign-up");
+        printf("\n[2] Sign-in");
+        
+        printf("\n\nEnter choice: ");
+        scanf("%d", &choice);
+        
+        switch (choice) {
+            case 1:
+                signUp();
+                break;
+            case 2:
+                signIn();
+                break;
+            default:
+                printf("Invalid choice. Try again...");
+        }
     }
 
     return;
 }
 
-// STAFF --------------------------------------------------------
+// STAFF-SIDE --------------------------------------------------------
 // Dummy Function
 void staffPage(char name[]) {
     printf("\nWelcome %s", name);
