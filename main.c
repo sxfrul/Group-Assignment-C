@@ -88,51 +88,91 @@ void customerLogin() {
     return;
 }
 
+// STAFF --------------------------------------------------------
 // Dummy Function
 void staffPage(char name[]) {
     printf("\nWelcome %s", name);
+    // TERMINATE HERE! /CONTINUE
+}
+
+void staffSignIn() {
+    char username[20]; // Username size
+    char password[20]; // Password size
+    char choice;
+
+    printf("\nEnter username: ");
+    scanf("%19s", username); // Limit input length to prevent buffer overflow and include null terminator
+    
+    printf("Enter password: ");
+    scanf("%19s", password); // Limit input length to prevent buffer overflow and include null terminator
+    
+
+    while (strcmp(username, "root") != 0 && strcmp(password, "admin") != 0) {
+        printf("\nLogin failed. Incorrect username or password.");
+        printf("\nWould you like to retry? [y/n]: ");
+        scanf(" %c", &choice);
+
+        if (choice == 'y') {
+            printf("\nEnter username: ");
+            scanf("%19s", username); // Limit input length to prevent buffer overflow and include null terminator
+    
+            printf("Enter password: ");
+            scanf("%19s", password); // Limit input length to prevent buffer overflow and include null terminator
+        }
+        else {
+            return;
+            break;
+        }
+    }
+
+    staffPage(username);
 }
 
 void staffLogin() {
-    char username[20]; // Username size
-    char password[20]; // Password size
-    
-    printf("\n>Selection Screen>Staff Login");
+    int action;
     
     while (1) {
-        printf("\n\nEnter username: ");
-        scanf("%19s", username); // Limit input length to prevent buffer overflow and include null terminator
-        
-        printf("Enter password: ");
-        scanf("%19s", password); // Limit input length to prevent buffer overflow and include null terminator
-        
-        if (strcmp(username, "root") == 0 && strcmp(password, "admin") == 0) {
-            printf("\nSuccessfully logged in. [root]");
-            staffPage(username);
-            break;
-        } else {
-            printf("\nLogin failed. Incorrect username or password.");
+        printf("\n>Selection Screen>Staff Login");
+
+        printf("\n\n[1] Sign-in");
+        printf("\n[2] Back");
+
+        printf("\n\nEnter choice: ");
+        scanf("%d", &action);
+
+        switch (action) {
+            case 1:
+                staffSignIn();
+                break;
+            case 2:
+                return;
+                break;
+            default:
+                printf("\nInvalid input...");
         }
     }
 }
 
-void selectionScreen() {
+// SELECTION -------------------------------------------
+int selectionScreen() {
     int action;
     
-    printf("\n>Selection Screen");
-    printf("\n\n[1] Staff");
-    printf("\n[2] Customer\n");
-    
-    do {
-    printf("\nEnter action according to number: ");
-    scanf("%d", &action);
-    } while (action != 1 && action != 2);
-    
-    if (action == 1) {
-        staffLogin();
-    }
-    else if (action == 2) {
-        customerLogin();
+    while (1) {
+        printf("\n>Selection Screen");
+        printf("\n\n[1] Staff");
+        printf("\n[2] Customer\n");
+        
+        do {
+        printf("\nEnter action according to number: ");
+        scanf("%d", &action);
+        } while (action != 1 && action != 2);
+        
+        if (action == 1) {
+            staffLogin();
+        }
+        else if (action == 2) {
+            customerLogin();
+        }
     }
 }
 
