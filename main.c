@@ -14,16 +14,36 @@ struct User {
 struct User users[MAX_USERS];
 int numUsers = 0;
 
-void mainPage() {
-    printf("Welcome!\n");
+// Dummy function for customerpage
+void customerPage(char username[]) {
+    printf("Welcome, %s\n", username);
 }
 
-void signup() {
+void signIn() {
+    char username[MAX_USERNAME_LENGTH]; //Local
+    char password[MAX_PASSWORD_LENGTH]; //Local
+    
+    printf("\n\nCUSTOMER SIGN-IN PAGE\n");
+    printf("Enter username: ");
+    scanf("%s", username);
+    printf("Enter password: ");
+    scanf("%s", password);
+
+    for (int i = 0; i < numUsers; i++) {
+        if (strcmp(users[i].username, username) == 0 && strcmp(users[i].password, password) == 0) {
+            printf("\nLogin successful!\n");
+            customerPage(username);
+        }
+    }
+}
+
+void signUp() {
     if (numUsers >= MAX_USERS) {
         printf("Maximum number of users reached.\n");
         return;
     }
-
+    
+    printf("\nCUSTOMER SIGN-UP PAGE\n");
     printf("Enter username: ");
     scanf("%s", users[numUsers].username);
 
@@ -39,52 +59,38 @@ void signup() {
     scanf("%s", users[numUsers].password);
     numUsers++;
 
-    printf("Signup successful!\n");
-}
-
-void login() {
-    char username[MAX_USERNAME_LENGTH]; //Local
-    char password[MAX_PASSWORD_LENGTH]; //Local
-    printf("Enter username: ");
-    scanf("%s", username);
-    printf("Enter password: ");
-    scanf("%s", password);
-
-    for (int i = 0; i < numUsers; i++) {
-        if (strcmp(users[i].username, username) == 0 && strcmp(users[i].password, password) == 0) {
-            printf("Login successful!\n");
-            mainPage();
-        }
-    }
-
-    printf("Invalid username or password.\n");
+    printf("\nSignup successful!");
+    printf("\nRedirecting to sign-in page...");
+    signIn();
 }
 
 void customerLogin() {
     int choice;
-    do {
-        printf("\n[1] Signup\n[2] Login\n[3] Back\n");
-        printf("\nEnter your choice: ");
-        scanf("%d", &choice);
-
-        switch (choice) {
-            case 1:
-                signup();
-                printf("test2");
-                break;
-            case 2:
-                login();
-                printf("test");
-                break;
-            case 3:
-                return;
-                break;
-            default:
-                printf("Invalid choice. Please try again.\n");
-        }
-    } while (choice != 3);
+    
+    printf("\n>Selection Screen>Customer Login");
+    printf("\n\n[1] Sign-up");
+    printf("\n[2] Sign-in");
+    
+    printf("\n\nEnter choice: ");
+    scanf("%d", &choice);
+    
+    switch (choice) {
+        case 1:
+            signUp();
+            break;
+        case 2:
+            signIn();
+            break;
+        default:
+            printf("Invalid choice. Try again...");
+    }
 
     return;
+}
+
+// Dummy Function
+void staffPage(char name[]) {
+    printf("\nWelcome %s", name);
 }
 
 void staffLogin() {
@@ -102,8 +108,8 @@ void staffLogin() {
         
         if (strcmp(username, "root") == 0 && strcmp(password, "admin") == 0) {
             printf("\nSuccessfully logged in. [root]");
-            // staffPage();
-            // break;
+            staffPage(username);
+            break;
         } else {
             printf("\nLogin failed. Incorrect username or password.");
         }
