@@ -89,7 +89,7 @@ void customerLogin() {
                 signIn();
                 break;
             case 3:
-                break;
+                return;
             default:
                 printf("Invalid choice. Try again...");
         }
