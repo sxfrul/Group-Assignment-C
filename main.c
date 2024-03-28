@@ -76,6 +76,7 @@ void customerLogin() {
         printf("\n>Selection Screen>Customer Login");
         printf("\n\n[1] Sign-up");
         printf("\n[2] Sign-in");
+        printf("\n[3] Back");
         
         printf("\n\nEnter choice: ");
         scanf("%d", &choice);
@@ -86,6 +87,8 @@ void customerLogin() {
                 break;
             case 2:
                 signIn();
+                break;
+            case 3:
                 break;
             default:
                 printf("Invalid choice. Try again...");
