@@ -76,7 +76,7 @@ void customerLogin() {
         printf("\033[0;32m");
         printf("\n>Selection Screen>Customer Login");
         printf("\033[0m");
-        
+
         printf("\n\n[1] Sign-up");
         printf("\n[2] Sign-in");
         printf("\n[3] Back");
@@ -195,7 +195,7 @@ int selectionScreen() {
 }
 
 void welcomeMessage() {
-    printf("\033[0;31m"); 
+    printf("\033[0;95m");
     printf("    _       _               _             _ _         _   _             \n");
     printf("   /_\\   __| |_ _ _ ___    /_\\  _ __ _ __| (_)__ __ _| |_(_)___ _ _  ___\n");
     printf("  / _ \\ (_-<  _| '_/ _ \\  / _ \\| '_ \\ '_ \\ | / _/ _` |  _| / _ \\ ' \\(_-<\n");
