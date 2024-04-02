@@ -42,7 +42,10 @@ void signIn() {
     char username[MAX_USERNAME_LENGTH]; //Local
     char password[MAX_PASSWORD_LENGTH]; //Local
     
+    green();
     printf("\n\nCUSTOMER SIGN-IN PAGE\n");
+    removeColor();
+
     printf("Enter username: ");
     scanf("%s", username);
     printf("Enter password: ");
@@ -50,13 +53,18 @@ void signIn() {
 
     for (int i = 0; i < numUsers; i++) {
         if (strcmp(users[i].username, username) == 0 && strcmp(users[i].password, password) == 0) {
+            green();
             printf("\nLogin successful!\n");
+            removeColor();
+
             customerPage(username);
             return;
         }
     }
 
-    printf("\n Login failed...");
+    red();
+    printf("\nLogin failed...");
+    removeColor();
     return;
 }
 
@@ -71,7 +79,10 @@ void signUp() {
         return;
     }
     
+    green();
     printf("\nCUSTOMER SIGN-UP PAGE\n");
+    removeColor();
+
     printf("Enter username: ");
     scanf("%s", users[numUsers].username);
 
@@ -93,14 +104,20 @@ void signUp() {
 
     if (strcmp(password, confirmPassword) == 0) {
         strcpy(users[numUsers].password, confirmPassword);
+
+        green();
         printf("\nSignup successful!");
+        removeColor();
+
         numUsers++;
 
         printf("\nRedirecting to sign-in page...");
         signIn();
     }
     else {
+        red();
         printf("\nSignup unsuccessful...");
+        removeColor();
         return;
     }
 }
@@ -147,8 +164,8 @@ void staffPage(char name[]) {
 }
 
 void staffSignIn() {
-    char username[20]; // Username size
-    char password[20]; // Password size
+    char username[MAX_USERNAME_LENGTH]; // Username size
+    char password[MAX_PASSWORD_LENGTH]; // Password size
     char choice;
 
     printf("\nEnter username: ");
