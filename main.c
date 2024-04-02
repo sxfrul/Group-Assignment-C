@@ -123,7 +123,7 @@ void signUp() {
 }
 
 void customerLogin() {
-    int choice;
+    char choice;
     
     while (1) {
         green();
@@ -135,16 +135,16 @@ void customerLogin() {
         printf("\n[3] Back");
         
         printf("\n\nEnter choice: ");
-        scanf("%d", &choice);
+        scanf(" %c", &choice);
         
         switch (choice) {
-            case 1:
+            case '1':
                 signUp();
                 break;
-            case 2:
+            case '2':
                 signIn();
                 break;
-            case 3:
+            case '3':
                 return;
             default:
                 red();
@@ -199,7 +199,7 @@ void staffSignIn() {
 }
 
 void staffLogin() {
-    int action;
+    char action;
     
     while (1) {
         green();
@@ -210,13 +210,13 @@ void staffLogin() {
         printf("\n[2] Back");
 
         printf("\n\nEnter choice: ");
-        scanf("%d", &action);
+        scanf(" %c", &action);
 
         switch (action) {
-            case 1:
+            case '1':
                 staffSignIn();
                 break;
-            case 2:
+            case '2':
                 return;
                 break;
             default:
@@ -228,7 +228,7 @@ void staffLogin() {
 }
 
 // SELECTION -------------------------------------------
-int selectionScreen() {
+void selectionScreen() {
     char action;
     
     while (1) {
@@ -237,24 +237,31 @@ int selectionScreen() {
         removeColor();
 
         printf("\n\n[1] Staff");
-        printf("\n[2] Customer\n");
+        printf("\n[2] Customer");
+        printf("\n[3] Exit\n");
         
         do {
         printf("\nEnter action according to number: ");
         scanf(" %c", &action);
-        if (action != '1' && action != '2')
+        if (action != '1' && action != '2' && action != '3')
         {
             red();
             printf("Invalid input.\n");
             removeColor();
         }
-        } while (action != '1' && action != '2');
+        } while (action != '1' && action != '2' && action != '3');
         
         if (action == '1') {
             staffLogin();
         }
         else if (action == '2') {
             customerLogin();
+        }
+        else if (action == '3') {
+            pink();
+            printf("\nThank you for using Astro Application. See you!");
+            removeColor();
+            return;
         }
     }
 }
