@@ -73,7 +73,10 @@ void customerLogin() {
     int choice;
     
     while (1) {
+        printf("\033[0;32m");
         printf("\n>Selection Screen>Customer Login");
+        printf("\033[0m");
+        
         printf("\n\n[1] Sign-up");
         printf("\n[2] Sign-in");
         printf("\n[3] Back");
@@ -142,7 +145,9 @@ void staffLogin() {
     int action;
     
     while (1) {
+        printf("\033[0;32m");
         printf("\n>Selection Screen>Staff Login");
+        printf("\033[0m");
 
         printf("\n\n[1] Sign-in");
         printf("\n[2] Back");
@@ -168,7 +173,10 @@ int selectionScreen() {
     int action;
     
     while (1) {
+        printf("\033[0;32m");
         printf("\n>Selection Screen");
+        printf("\033[0m");
+
         printf("\n\n[1] Staff");
         printf("\n[2] Customer\n");
         
@@ -186,10 +194,22 @@ int selectionScreen() {
     }
 }
 
+void welcomeMessage() {
+    printf("\033[0;31m"); 
+    printf("    _       _               _             _ _         _   _             \n");
+    printf("   /_\\   __| |_ _ _ ___    /_\\  _ __ _ __| (_)__ __ _| |_(_)___ _ _  ___\n");
+    printf("  / _ \\ (_-<  _| '_/ _ \\  / _ \\| '_ \\ '_ \\ | / _/ _` |  _| / _ \\ ' \\(_-<\n");
+    printf(" /_/ \\_\\/__/\\__|_| \\___/ /_/ \\_\\ .__/ .__/_|_\\__\\__,_|\\__|_\\___/_||_/__/\n");
+    printf("                               |_|  |_|                                 \n");
+    printf("\033[0m");
+}
+
 int main()
 {
     char start;
-    
+
+    welcomeMessage(); //subroutine to Welcome Message
+
     printf("Welcome to Astro Application");
     printf("\nPress enter to continue... ");
     scanf("%c", &start);
