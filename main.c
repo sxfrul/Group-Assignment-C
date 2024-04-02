@@ -27,8 +27,12 @@ void red() {
     printf("\033[0;31m");
 }
 
+void green() {
+    printf("\033[0;32m");
+}
 
-// CUSTOMER-SIDE ----------------------------------------------------
+
+// CUSTOMER-CENTERED ----------------------------------------------------
 // Dummy function for customerpage
 void customerPage(char username[]) {
     printf("Welcome, %s\n", username);
@@ -91,9 +95,9 @@ void customerLogin() {
     int choice;
     
     while (1) {
-        printf("\033[0;32m");
+        green();
         printf("\n>Selection Screen>Customer Login");
-        printf("\033[0m");
+        removeColor();
 
         printf("\n\n[1] Sign-up");
         printf("\n[2] Sign-in");
@@ -121,7 +125,7 @@ void customerLogin() {
     return;
 }
 
-// STAFF-SIDE --------------------------------------------------------
+// STAFF-CENTERED --------------------------------------------------------
 // Dummy Function
 void staffPage(char name[]) {
     printf("\nWelcome %s", name);
@@ -167,9 +171,9 @@ void staffLogin() {
     int action;
     
     while (1) {
-        printf("\033[0;32m");
+        green();
         printf("\n>Selection Screen>Staff Login");
-        printf("\033[0m");
+        removeColor();
 
         printf("\n\n[1] Sign-in");
         printf("\n[2] Back");
@@ -197,9 +201,9 @@ int selectionScreen() {
     char action;
     
     while (1) {
-        printf("\033[0;32m");
+        green();
         printf("\n>Selection Screen");
-        printf("\033[0m");
+        removeColor();
 
         printf("\n\n[1] Staff");
         printf("\n[2] Customer\n");
