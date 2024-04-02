@@ -241,7 +241,7 @@ void selectionScreen() {
         printf("\n[3] Exit\n");
         
         do {
-        printf("\nEnter action according to number: ");
+        printf("\nEnter choice: ");
         scanf(" %c", &action);
         if (action != '1' && action != '2' && action != '3')
         {
