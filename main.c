@@ -61,6 +61,9 @@ void signIn() {
 }
 
 void signUp() {
+    char password[20];
+    char confirmPassword[20];
+
     if (numUsers >= MAX_USERS) {
         red();
         printf("Maximum number of users reached.\n");
@@ -83,12 +86,23 @@ void signUp() {
     }
 
     printf("Enter password: ");
-    scanf("%s", users[numUsers].password);
-    numUsers++;
+    scanf("%s", password);
 
-    printf("\nSignup successful!");
-    printf("\nRedirecting to sign-in page...");
-    signIn();
+    printf("Confirm password: ");
+    scanf("%s", confirmPassword);
+
+    if (strcmp(password, confirmPassword) == 0) {
+        strcpy(users[numUsers].password, confirmPassword);
+        printf("\nSignup successful!");
+        numUsers++;
+
+        printf("\nRedirecting to sign-in page...");
+        signIn();
+    }
+    else {
+        printf("\nSignup unsuccessful...");
+        return;
+    }
 }
 
 void customerLogin() {
