@@ -14,6 +14,20 @@ struct User {
 struct User users[MAX_USERS];
 int numUsers = 0;
 
+// COLOR --------------------------------------
+void pink() {
+    printf("\033[0;95m");
+}
+
+void removeColor() {
+    printf("\033[0m");
+}
+
+void red() {
+    printf("\033[0;31m");
+}
+
+
 // CUSTOMER-SIDE ----------------------------------------------------
 // Dummy function for customerpage
 void customerPage(char username[]) {
@@ -44,7 +58,9 @@ void signIn() {
 
 void signUp() {
     if (numUsers >= MAX_USERS) {
+        red();
         printf("Maximum number of users reached.\n");
+        removeColor();
         return;
     }
     
@@ -55,7 +71,9 @@ void signUp() {
     // Check if username already exists
     for (int i = 0; i < numUsers; i++) {
         if (strcmp(users[i].username, users[numUsers].username) == 0) {
+            red();
             printf("Username already exists. Please choose another.\n");
+            removeColor();
             return;
         }
     }
@@ -94,7 +112,9 @@ void customerLogin() {
             case 3:
                 return;
             default:
+                red();
                 printf("Invalid choice. Try again...");
+                removeColor();
         }
     }
 
@@ -121,10 +141,10 @@ void staffSignIn() {
     
 
     while (strcmp(username, "root") != 0 || strcmp(password, "admin") != 0) {
-        printf("\033[0;31m");
+        red();
         printf("\nLogin failed. Incorrect username or password.");
         printf("\nWould you like to retry? [y/n]: ");
-        printf("\033[0m");
+        removeColor();
         scanf(" %c", &choice);
 
         if (choice == 'y') {
@@ -165,7 +185,9 @@ void staffLogin() {
                 return;
                 break;
             default:
+                red();
                 printf("\nInvalid input...");
+                removeColor();
         }
     }
 }
@@ -187,9 +209,9 @@ int selectionScreen() {
         scanf(" %c", &action);
         if (action != '1' && action != '2')
         {
-            printf("\033[0;31m");
+            red();
             printf("Invalid input.\n");
-            printf("\033[0m");
+            removeColor();
         }
         } while (action != '1' && action != '2');
         
@@ -203,13 +225,13 @@ int selectionScreen() {
 }
 
 void welcomeMessage() {
-    printf("\033[0;95m");
+    pink();
     printf("    _       _               _             _ _         _   _             \n");
     printf("   /_\\   __| |_ _ _ ___    /_\\  _ __ _ __| (_)__ __ _| |_(_)___ _ _  ___\n");
     printf("  / _ \\ (_-<  _| '_/ _ \\  / _ \\| '_ \\ '_ \\ | / _/ _` |  _| / _ \\ ' \\(_-<\n");
     printf(" /_/ \\_\\/__/\\__|_| \\___/ /_/ \\_\\ .__/ .__/_|_\\__\\__,_|\\__|_\\___/_||_/__/\n");
     printf("                               |_|  |_|                                 \n");
-    printf("\033[0m");
+    removeColor();
 }
 
 int main()
