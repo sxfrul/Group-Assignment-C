@@ -120,7 +120,7 @@ void staffSignIn() {
     scanf("%19s", password); // Limit input length to prevent buffer overflow and include null terminator
     
 
-    while (strcmp(username, "root") != 0 && strcmp(password, "admin") != 0) {
+    while (strcmp(username, "root") != 0 || strcmp(password, "admin") != 0) {
         printf("\nLogin failed. Incorrect username or password.");
         printf("\nWould you like to retry? [y/n]: ");
         scanf(" %c", &choice);
@@ -170,7 +170,7 @@ void staffLogin() {
 
 // SELECTION -------------------------------------------
 int selectionScreen() {
-    int action;
+    char action;
     
     while (1) {
         printf("\033[0;32m");
@@ -182,13 +182,13 @@ int selectionScreen() {
         
         do {
         printf("\nEnter action according to number: ");
-        scanf("%d", &action);
-        } while (action != 1 && action != 2);
+        scanf(" %c", &action);
+        } while (action != '1' && action != '2');
         
-        if (action == 1) {
+        if (action == '1') {
             staffLogin();
         }
-        else if (action == 2) {
+        else if (action == '2') {
             customerLogin();
         }
     }
@@ -215,6 +215,5 @@ int main()
     scanf("%c", &start);
     
     selectionScreen();
-
     return 0;
 }
