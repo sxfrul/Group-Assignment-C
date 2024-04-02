@@ -121,8 +121,10 @@ void staffSignIn() {
     
 
     while (strcmp(username, "root") != 0 || strcmp(password, "admin") != 0) {
+        printf("\033[0;31m");
         printf("\nLogin failed. Incorrect username or password.");
         printf("\nWould you like to retry? [y/n]: ");
+        printf("\033[0m");
         scanf(" %c", &choice);
 
         if (choice == 'y') {
@@ -183,6 +185,12 @@ int selectionScreen() {
         do {
         printf("\nEnter action according to number: ");
         scanf(" %c", &action);
+        if (action != '1' && action != '2')
+        {
+            printf("\033[0;31m");
+            printf("Invalid input.\n");
+            printf("\033[0m");
+        }
         } while (action != '1' && action != '2');
         
         if (action == '1') {
