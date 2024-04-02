@@ -15,12 +15,12 @@ struct User users[MAX_USERS];
 int numUsers = 0;
 
 // COLOR --------------------------------------
-void pink() {
-    printf("\033[0;95m");
-}
-
 void removeColor() {
     printf("\033[0m");
+}
+
+void pink() {
+    printf("\033[0;95m");
 }
 
 void red() {
