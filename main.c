@@ -42,7 +42,7 @@ void signIn() {
     char username[MAX_USERNAME_LENGTH]; //Local
     char password[MAX_PASSWORD_LENGTH]; //Local
     
-    green();
+    pink();
     printf("\n\nCUSTOMER SIGN-IN PAGE\n");
     removeColor();
 
@@ -79,7 +79,7 @@ void signUp() {
         return;
     }
     
-    green();
+    pink();
     printf("\nCUSTOMER SIGN-UP PAGE\n");
     removeColor();
 
@@ -126,7 +126,7 @@ void customerLogin() {
     char choice;
     
     while (1) {
-        green();
+        pink();
         printf("\n>Selection Screen>Customer Login");
         removeColor();
 
@@ -194,7 +194,9 @@ void staffSignIn() {
             break;
         }
     }
-
+    green();
+    printf("\nLogin succesful!\n");
+    removeColor();
     staffPage(username);
 }
 
@@ -202,7 +204,7 @@ void staffLogin() {
     char action;
     
     while (1) {
-        green();
+        pink();
         printf("\n>Selection Screen>Staff Login");
         removeColor();
 
@@ -232,7 +234,7 @@ void selectionScreen() {
     char action;
     
     while (1) {
-        green();
+        pink();
         printf("\n>Selection Screen");
         removeColor();
 
