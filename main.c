@@ -63,7 +63,7 @@ void signIn() {
     }
 
     red();
-    printf("\nLogin failed...");
+    printf("\nLogin failed...\n");
     removeColor();
     return;
 }
@@ -104,19 +104,17 @@ void signUp() {
 
     if (strcmp(password, confirmPassword) == 0) {
         strcpy(users[numUsers].password, confirmPassword);
-
-        green();
-        printf("\nSignup successful!");
-        removeColor();
-
         numUsers++;
 
-        printf("\nRedirecting to sign-in page...");
+        green();
+        printf("\nSignup successful!\n");
+        removeColor();
+        printf("Redirecting to sign-in page...");
         signIn();
     }
     else {
         red();
-        printf("\nSignup unsuccessful...");
+        printf("\nSignup unsuccessful...\n");
         removeColor();
         return;
     }
