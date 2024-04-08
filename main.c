@@ -266,7 +266,7 @@ void selectionScreen() {
     }
 }
 
-void welcomeMessage() {
+void appTitle() {
     pink();
     printf("    _       _               _             _ _         _   _             \n");
     printf("   /_\\   __| |_ _ _ ___    /_\\  _ __ _ __| (_)__ __ _| |_(_)___ _ _  ___\n");
@@ -280,7 +280,7 @@ int main()
 {
     char start;
 
-    welcomeMessage(); //subroutine to Welcome Message
+    appTitle(); //subroutine to Welcome Message
 
     printf("Welcome to Astro Application");
     printf("\nPress enter to continue... ");
