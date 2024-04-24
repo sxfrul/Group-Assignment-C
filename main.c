@@ -1,5 +1,7 @@
 #include <stdio.h>
 #include <string.h>
+#include <stdlib.h>
+#include <unistd.h>
 
 #define MAX_USERS 10
 #define MAX_USERNAME_LENGTH 20
@@ -41,7 +43,9 @@ void customerPage(char username[]) {
 void signIn() {
     char username[MAX_USERNAME_LENGTH]; //Local
     char password[MAX_PASSWORD_LENGTH]; //Local
+    char retry;
     
+    system("clear");
     pink();
     printf("\n\nCUSTOMER SIGN-IN PAGE\n");
     removeColor();
@@ -55,6 +59,8 @@ void signIn() {
         if (strcmp(users[i].username, username) == 0 && strcmp(users[i].password, password) == 0) {
             green();
             printf("\nLogin successful!\n");
+            printf("Redircting to customer page...\n");
+            sleep(3);
             removeColor();
 
             customerPage(username);
@@ -64,6 +70,8 @@ void signIn() {
 
     red();
     printf("\nLogin failed...\n");
+    printf("Redirecting back...\n");
+    sleep(3);
     removeColor();
     return;
 }
@@ -71,6 +79,8 @@ void signIn() {
 void signUp() {
     char password[20];
     char confirmPassword[20];
+
+    system("clear");
 
     if (numUsers >= MAX_USERS) {
         red();
@@ -91,6 +101,7 @@ void signUp() {
         if (strcmp(users[i].username, users[numUsers].username) == 0) {
             red();
             printf("Username already exists. Please choose another.\n");
+            sleep(3);
             removeColor();
             return;
         }
@@ -108,13 +119,15 @@ void signUp() {
 
         green();
         printf("\nSignup successful!\n");
+        sleep(2);
         removeColor();
-        printf("Redirecting to sign-in page...");
+        printf("Redirected to sign-in page...");
         signIn();
     }
     else {
         red();
         printf("\nSignup unsuccessful...\n");
+        sleep(3);
         removeColor();
         return;
     }
@@ -124,6 +137,7 @@ void customerLogin() {
     char choice;
     
     while (1) {
+        system("clear");
         pink();
         printf("\n>Selection Screen>Customer Login");
         removeColor();
@@ -162,6 +176,7 @@ void staffPage(char name[]) {
 }
 
 void staffSignIn() {
+    system("clear");
     char username[MAX_USERNAME_LENGTH]; // Username size
     char password[MAX_PASSWORD_LENGTH]; // Password size
     char choice;
@@ -194,6 +209,7 @@ void staffSignIn() {
     }
     green();
     printf("\nLogin succesful!\n");
+    sleep(3);
     removeColor();
     staffPage(username);
 }
@@ -202,6 +218,7 @@ void staffLogin() {
     char action;
     
     while (1) {
+        system("clear");
         pink();
         printf("\n>Selection Screen>Staff Login");
         removeColor();
@@ -232,6 +249,7 @@ void selectionScreen() {
     char action;
     
     while (1) {
+        system("clear");
         pink();
         printf("\n>Selection Screen");
         removeColor();
@@ -258,6 +276,7 @@ void selectionScreen() {
             customerLogin();
         }
         else if (action == '3') {
+            system("clear");
             pink();
             printf("\nThank you for using Astro Application. See you!");
             removeColor();
