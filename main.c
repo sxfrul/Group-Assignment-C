@@ -590,15 +590,27 @@ void delService(void){
 			
 	printf("\nCONFIRM?\n1 YES\t2 NO\nanswer: ");
 	scanf("%d", &confirm);
+
+    int remainder = 100 - delServ;
 			
 	if(confirm==1){
-		delServ--;
-		strcpy(subName[delServ], "");
-        subDuration[delServ] = 0;
-		subPrice[delServ] = 0;
+        for (int i = delServ; i<remainder; i++) {
+            if (subDuration[i] == 0) {
+                strcpy(subName[i-1], "");
+                subDuration[i-1] = 0;
+                subPrice[i-1] = 0;
+                break;
+            }
+            strcpy(subName[i-1], subName[i]);
+            subDuration[i-1] = subDuration[i];
+            subPrice[i-1] = subPrice[i];
+        }
     		
 		printf("\nService\t\t\tDuration\tPrice\n");
-		for (i = 0; i<4; i++) {
+		for (i = 0; i<100; i++) {
+            if (subDuration[i] == 0) {
+                break;
+            }
     	    printf("Item [%d]:%s \tDuration:%d \tPrice:%d\n",i+1, subName[i], subDuration[i], subPrice[i]);
     	}
 	}
