@@ -6,6 +6,8 @@
 #define MAX_USERS 10
 #define MAX_USERNAME_LENGTH 20
 #define MAX_PASSWORD_LENGTH 20
+#define MAX_FIRSTNAME_LENGTH 20
+#define MAX_LASTNAME_LENGTH 20
 
 // SERVICE DATABASE
 // SUBSCRIPTIONS
@@ -62,6 +64,8 @@ void genReport();
 
 // Hashmap or Dict
 struct User {
+    char firstName[MAX_FIRSTNAME_LENGTH];
+    char lastName[MAX_LASTNAME_LENGTH];
     char username[MAX_USERNAME_LENGTH];
     char password[MAX_PASSWORD_LENGTH];
 };
@@ -91,14 +95,14 @@ void green() {
 // Dummy function for customerpage
 
 //start of fakhrul part
-void customerPage(char username[]) {
+void customerPage(char username[], char firstName[], char lastName[]) {
     int option;
     while (1) {
         system("clear");
         pink();
         printf("\n>Selection Screen>Customer Login>Customer Page\n");
         removeColor();
-        printf("\nWelcome %s!\nWhat can we do for you?", username);
+        printf("\nWelcome %s %s (%s)!\nWhat can we do for you?", firstName, lastName, username);
         printf("\n\n[1] Subscriptions\n[2] Promotions\n[3] Payment\n[4] Back to User Select\n");
         printf("\n-------------------------------------------");
         printf("\nInsert the number : ");
@@ -342,7 +346,7 @@ void signIn() {
             sleep(3);
             removeColor();
 
-            customerPage(username);
+            customerPage(username, users[i].firstName, users[i].lastName);
             return;
         }
     }
@@ -385,6 +389,12 @@ void signUp() {
             return;
         }
     }
+
+    printf("Enter first name: ");
+    scanf("%s", users[numUsers].firstName);
+
+    printf("Enter last name: ");
+    scanf("%s", users[numUsers].lastName);
 
     printf("Enter password: ");
     scanf("%s", password);
@@ -722,12 +732,11 @@ void delService(void){
             break;
     }
     return;
-    
 }
 
 
 void editService(void){
-	int item,edit;
+	int item, edit, choice;
 	char newName[100];
 	float newDura,newPrice;
     system("clear");
@@ -735,91 +744,242 @@ void editService(void){
     printf("\n>Selection Screen>Staff Login>Staff Page>Edit Service\n");
     removeColor();
 	printf("\nEdit Service:\n");
-    pink();
-	printf("\n%-45s\t\t\tDuration\tPrice\n", "Service");
-    removeColor();
-	for (i = 0; i<100; i++) { //this part Safrul need to do correction
-        if (subDuration[i] == 0) {
-                break;
+    printf("[1] Subscriptions\n");
+    printf("[2] Promotions\n");
+    printf("[3] Back\n\n");
+
+    printf("Enter choice: ");
+    scanf("%d", &choice);
+
+    switch (choice) {
+        case 1:
+            system("clear");
+            pink();
+            printf("\n%-45s\t\t\tDuration\tPrice\n", "Service");
+            removeColor();
+            for (i = 0; i<100; i++) { //this part Safrul need to do correction
+                if (subDuration[i] == 0) {
+                        break;
+                    }
+
+                printf("Item [%d]:%-50s \tDuration:%-3d \tPrice:%-3d\n",i+1, subName[i], subDuration[i], subPrice[i]);
             }
+            
+            printf("\nEnter item to edit:");
+            scanf("%d", &item);
+            item--;
+            
+            printf("Edit:\n1.Name\n2.Duration\n3.Price\nanswer:");
+            scanf("%d", &edit);
 
-        printf("Item [%d]:%-50s \tDuration:%-3d \tPrice:%-3d\n",i+1, subName[i], subDuration[i], subPrice[i]);
-	}
-	
-	printf("\nEnter item to edit:");
-	scanf("%d", &item);
-	item--;
-	
-	printf("Edit:\n1.Name\n2.Duration\n3.Price\nanswer:");
-	scanf("%d", &edit);
+            if (edit==1){
+                //edit name
+                printf("Re-enter Name:");
+                scanf("%s", newName);
+                strcpy(subName[item], newName);
+                
+                printf("Item[%d]:%-50s Duration:%-3d Price:%-3d",item+1, subName[item], subDuration[item], subPrice[item]);
+                
+            }
+            else if(edit==2){
+                //edit duration
+                printf("Re-enter Duration:");
+                scanf("%f", &newDura);
+                subDuration[item] = newDura;
+                
+                printf("Item[%d]:%-50s Duration:%-3d Price:%-3d",item+1, subName[item], subDuration[item], subPrice[item]);
+            }
+            else if (edit==3){
+                //edit price
+                printf("Re-enter Price:");
+                scanf("%f", &newPrice);
+                subPrice[item] = newPrice;
+                
+                printf("Item[%d]:%-50s Duration:%-3d Price:%-3d",item+1, subName[item], subDuration[item],subPrice[item]);
+            }
+            system("clear");
+            break;
+        case 2:
+            system("clear");
+            pink();
+            printf("\n%-45s\t\t\tDuration\tPrice\n", "Service");
+            removeColor();
+            for (i = 0; i<100; i++) { //this part Safrul need to do correction
+                if (promDuration[i] == 0) {
+                        break;
+                    }
 
-	if (edit==1){
-		//edit name
-		printf("Re-enter Name:");
-		scanf("%s", newName);
-		strcpy(subName[item], newName);
-		
-		printf("Item[%d]:%-50s Duration:%-3d Price:%-3d",item+1, subName[item], subDuration[item], subPrice[item]);
-		
-	}
-	else if(edit==2){
-		//edit duration
-		printf("Re-enter Duration:");
-		scanf("%f", &newDura);
-		subDuration[item] = newDura;
-		
-		printf("Item[%d]:%-50s Duration:%-3d Price:%-3d",item+1, subName[item], subDuration[item], subPrice[item]);
-	}
-	else if (edit==3){
-		//edit price
-		printf("Re-enter Price:");
-		scanf("%f", &newPrice);
-		subPrice[item] = newPrice;
-		
-		printf("Item[%d]:%-50s Duration:%-3d Price:%-3d",item+1, subName[item], subDuration[item],subPrice[item]);
-	}
-    system("clear");
+                printf("Item [%d]:%-50s \tDuration:%-3d \tPrice:%-3d\n",i+1, promName[i], promDuration[i], promPrice[i]);
+            }
+            
+            printf("\nEnter item to edit:");
+            scanf("%d", &item);
+            item--;
+            
+            printf("Edit:\n1.Name\n2.Duration\n3.Price\nanswer:");
+            scanf("%d", &edit);
+
+            if (edit==1){
+                //edit name
+                printf("Re-enter Name:");
+                scanf("%s", newName);
+                strcpy(promName[item], newName);
+                
+                printf("Item[%d]:%-50s Duration:%-3d Price:%-3d",item+1, promName[item], promDuration[item], promPrice[item]);
+                
+            }
+            else if(edit==2){
+                //edit duration
+                printf("Re-enter Duration:");
+                scanf("%f", &newDura);
+                promDuration[item] = newDura;
+                
+                printf("Item[%d]:%-50s Duration:%-3d Price:%-3d",item+1, promName[item], promDuration[item], promPrice[item]);
+            }
+            else if (edit==3){
+                //edit price
+                printf("Re-enter Price:");
+                scanf("%f", &newPrice);
+                promPrice[item] = newPrice;
+                
+                printf("Item[%d]:%-50s Duration:%-3d Price:%-3d",item+1, promName[item], promDuration[item],promPrice[item]);
+            }
+            system("clear");
+            break;
+        case 3:
+            break;
+        default:
+            red();
+            printf("Invalid choice... Returning.");
+            sleep(3);
+    }
 }
 
 void genReport(void){
-	int item,genRep,totalPurc, sale=4;
-	printf("\n-----GENERATE REPORT-----\n");
-    for (int i = 0; i<100; i++) { //this part Safrul need to do correction
-        if (subDuration[i] == 0) {
-                break;
-        }
-        printf("Item [%d]:%-50s\n",i+1, subName[i]);
-    }
-	
-	printf("\nChoose Item to Generate report(0 for All):");
+	int item,genRep,totalPurc, sale=4, emptySlot;
+    system("clear");
+	printf("\nGenerate report:\n\n");
+    printf("[1] Subscriptions\n");
+    printf("[2] Promotions\n");
+    printf("[3] Overview\n");
+    printf("[4] Back\n\n");
+
+    printf("\nEnter choice: ");
 	scanf("%d", &genRep);
-	
-    // FIND EMPTY
-    int emptySlot;
-    for (emptySlot = 0; emptySlot<100; emptySlot++) {
-        if (promDuration[emptySlot] == 0) {
-            break;
-        }
-    }
 
-	if(genRep == 0) {
-        for (int i = 0; i<100; i++) { //this part Safrul need to do correction
-            if (subDuration[i] == 0) {
-                    break;
+    switch (genRep) {
+        case 1:
+            system("clear");
+            printf("Item [0]: All\n");
+            for (int i = 0; i<100; i++) { //this part Safrul need to do correction
+                if (subDuration[i] == 0) {
+                        break;
+                }
+                printf("Item [%d]:%-50s\n",i+1, subName[i]);
             }
-            printf("\n-----REPORT ON ITEM[%d]-----\n",i+1);
-            printf("Purchase Count: %d\n", subPurchased[i]);
-            printf("Total Sale: RM%d\n", subPrice[i] * subPurchased[i]);
-        }
-        sleep(5);
-	}
-	else {
-            printf("\n-----REPORT ON ITEM[%d]-----\n",genRep);
-            printf("Purchase Count: %d\n", subPurchased[genRep-1]);
-            printf("Total Sale: RM%d\n", subPrice[genRep-1] * subPurchased[genRep-1]);
-            sleep(5);
-	}
+            
+            printf("\nWhich item would you like to generate report?: ");
+            scanf("%d", &genRep);
+            
+            // FIND EMPTY
+            for (emptySlot = 0; emptySlot<100; emptySlot++) {
+                if (subDuration[emptySlot] == 0) {
+                    break;
+                }
+            }
 
+            if(genRep == 0) {
+                for (int i = 0; i<100; i++) { //this part Safrul need to do correction
+                    if (subDuration[i] == 0) {
+                            break;
+                    }
+                    printf("\n-----REPORT ON ITEM[%d]-----\n",i+1);
+                    printf("Purchase Count: %d\n", subPurchased[i]);
+                    printf("Total Sale: RM%d\n", subPrice[i] * subPurchased[i]);
+                }
+                sleep(5);
+            }
+            else {
+                    printf("\n-----REPORT ON ITEM[%d]-----\n",genRep);
+                    printf("Purchase Count: %d\n", subPurchased[genRep-1]);
+                    printf("Total Sale: RM%d\n", subPrice[genRep-1] * subPurchased[genRep-1]);
+                    sleep(5);
+            }
+            break;
+        case 2:
+            system("clear");
+            printf("Item [0]: All\n");
+            for (int i = 0; i<100; i++) { //this part Safrul need to do correction
+                if (subDuration[i] == 0) {
+                        break;
+                }
+                printf("Item [%d]:%-50s\n",i+1, promName[i]);
+            }
+            
+            printf("\nWhich item would you like to generate report?: ");
+            scanf("%d", &genRep);
+            
+            // FIND EMPTY
+            for (emptySlot = 0; emptySlot<100; emptySlot++) {
+                if (promDuration[emptySlot] == 0) {
+                    break;
+                }
+            }
+
+            if(genRep == 0) {
+                for (int i = 0; i<100; i++) { //this part Safrul need to do correction
+                    if (promDuration[i] == 0) {
+                            break;
+                    }
+                    printf("\n-----REPORT ON ITEM[%d]-----\n",i+1);
+                    printf("Purchase Count: %d\n", promPurchased[i]);
+                    printf("Total Sale: RM%d\n", promPrice[i] * promPurchased[i]);
+                }
+                sleep(5);
+            }
+            else {
+                    printf("\n-----REPORT ON ITEM[%d]-----\n",genRep);
+                    printf("Purchase Count: %d\n", promPurchased[genRep-1]);
+                    printf("Total Sale: RM%d\n", promPrice[genRep-1] * promPurchased[genRep-1]);
+                    sleep(5);
+            }
+            break;
+        case 3:
+            system("clear");
+            // FIND EMPTY
+            for (emptySlot = 0; emptySlot<100; emptySlot++) {
+                if (promDuration[emptySlot] == 0) {
+                    break;
+                }
+            }
+
+            for (int i = 0; i<100; i++) { //this part Safrul need to do correction
+                if (subDuration[i] == 0) {
+                        break;
+                }
+                printf("\n-----REPORT ON SUBSCRIPTION[%d]-----\n",i+1);
+                printf("Purchase Count: %d\n", subPurchased[i]);
+                printf("Total Sale: RM%d\n", subPrice[i] * subPurchased[i]);
+            }
+            for (int i = 0; i<100; i++) { //this part Safrul need to do correction
+                if (promDuration[i] == 0) {
+                        break;
+                }
+                printf("\n-----REPORT ON PROMOTION[%d]-----\n",i+1);
+                printf("Purchase Count: %d\n", promPurchased[i]);
+                printf("Total Sale: RM%d\n", promPrice[i] * promPurchased[i]);
+            }
+            sleep(5);
+            break;
+        case 4:
+            break;
+        default:
+            red();
+            printf("\nInvalid choice... Returning to Staff page\n");
+            removeColor();
+            sleep(3);
+    }
+    return;
 }
 
 //end of mira part
