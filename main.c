@@ -25,6 +25,7 @@ int promQuantity[100] = {};
 float tax = 0.06;
 
 // GLOBAL VAR
+int invoiceCount = 0;
 float totalpayment = 0;
 
 int 
@@ -92,9 +93,11 @@ void customerPage(char username[]) {
     int option;
     while (1) {
         system("clear");
-        printf("-------------------------------------------\n");
+        pink();
+        printf("\n>Selection Screen>Customer Login>Customer Page\n");
+        removeColor();
         printf("\nWelcome %s!\nWhat can we do for you?", username);
-        printf("\n\n[1]-Subscriptions\n[2]-Payment\n[3]-Promotions\n[4]-Back to User Select\n");
+        printf("\n\n[1] Subscriptions\n[2] Promotions\n[3] Payment\n[4] Back to User Select\n");
         printf("\n-------------------------------------------");
         printf("\nInsert the number : ");
         scanf("%d", &option);
@@ -104,10 +107,10 @@ void customerPage(char username[]) {
                 subscription();
                 break;
             case 2:
-                payment();
+                promotion();
                 break;
             case 3:
-                promotion();
+                payment();
                 break;
             case 4:
                 return;
@@ -123,7 +126,9 @@ void subscription() {
 
     while (1) {
         system("clear");
-        printf("-------------------------------------------\n");
+        pink();
+        printf("\n>Selection Screen>Customer Login>Customer Page>Subscriptions\n");
+        removeColor();
         printf("\nSubscriptions available:\n");
         // printf("\n>>>Subscriptions available!<<<\n\n[1]-Sports 4 life! (30 days) - RM30");
         // printf("\n[2]-Midnight Blockbuster (30 days) - RM 35\n[3]-Premium Movie+ (30 days) - RM 40\n[4]-Return\n");
@@ -131,7 +136,7 @@ void subscription() {
             if (subDuration[i] == 0) {
                 break;
             }
-            printf("[%d] %s \t(%d days) \t- RM %d\n", i+1, subName[i], subDuration[i], subPrice[i]);
+            printf("[%d] %-50s \t%3d days \tRM %3d\n", i+1, subName[i], subDuration[i], subPrice[i]);
         }
         printf("[0] Return");
         printf("\n-------------------------------------------");
@@ -179,7 +184,9 @@ void promotion() {
 
     while (1) {
         system("clear");
-        printf("-------------------------------------------\n");
+        pink();
+        printf("\n>Selection Screen>Customer Login>Customer Page>Promotions\n");
+        removeColor();
         printf("\nPromotions available:\n");
         // printf("\n>>>Subscriptions available!<<<\n\n[1]-Sports 4 life! (30 days) - RM30");
         // printf("\n[2]-Midnight Blockbuster (30 days) - RM 35\n[3]-Premium Movie+ (30 days) - RM 40\n[4]-Return\n");
@@ -187,7 +194,7 @@ void promotion() {
             if (promDuration[i] == 0) {
                 break;
             }
-            printf("[%d] %s \t(%d days) \t- RM %d\n", i+1, promName[i], promDuration[i], promPrice[i]);
+            printf("[%d] %-50s \t%3d days \tRM %3d\n", i+1, promName[i], promDuration[i], promPrice[i]);
         }
         printf("[0] Return");
         printf("\n-------------------------------------------");
@@ -235,10 +242,11 @@ void payment() {
     int bankNum;
 
     system("clear");
-
-    printf("-------------------------------------------\n");
+    pink();
+    printf("\n>Selection Screen>Customer Login>Customer Page>Payment\n");
+    removeColor();
     printf("\n<{Total payment required to pay : RM %.2f}>", totalpayment);
-    printf("\n\n>>Choose option<<\n[1]-Pay\n[2]-Return\n\n");
+    printf("\n\n[1] Pay\n[2] Return\n\n");
     
     printf("-------------------------------------------\n");
     printf("Insert the Number : ");
@@ -260,24 +268,28 @@ void payment() {
 
                 taxpayment = tax * totalpayment;
                 paymentwtax = taxpayment + totalpayment;
+                invoiceCount++;
                 
                 system("clear");
+                green();
                 printf("\n>>Payment successful<<\n\n-------------------------------------------");
-                printf("\n\nYour Invoice has been sent :\n\n**************************************************************************************\n\n");
-                printf("Invoice no : 00001\nBill to : Astro Company Ltd\n");
+                removeColor();
+                printf("\n\nInvoice:\n");
                 printf("\n**************************************************************************************\n\n");
-                printf("[Item]\t\t\t\t\t[Duration]\t\t[Price]\n");
+                printf("Invoice no : %05d\nBill to : Astro Company Ltd\n", invoiceCount);
+                printf("\n**************************************************************************************\n\n");
+                printf("%-56s[Duration]\t[Price]\n", "[Item]");
                 
                 for (int i = 0; i<100; i++) {
                     if (subQuantity[i] != 0) {
-                        printf("%s \t(%d days) \t- RM %d\n", subName[i], subDuration[i] * subQuantity[i], subPrice[i]*subQuantity[i]);
+                        printf("%-50s \t(%3d days) \tRM %3d\n", subName[i], subDuration[i] * subQuantity[i], subPrice[i]*subQuantity[i]);
                         subQuantity[i] = 0;
                     }
                 }
 
                 for (int i = 0; i<100; i++) {
                     if (promQuantity[i] != 0) {
-                        printf("%s \t(%d days) \t- RM %d\n", promName[i], promDuration[i] * promQuantity[i], promPrice[i]*promQuantity[i]);
+                        printf("%-50s \t(%3d days) \tRM %3d\n", promName[i], promDuration[i] * promQuantity[i], promPrice[i]*promQuantity[i]);
                         promQuantity[i] = 0;
                     }
                 }
@@ -286,7 +298,9 @@ void payment() {
                 printf("\nTotal payment : RM%.2f\nTax service charge (6 percent) : RM%.2f\n\n", totalpayment, taxpayment);
                 printf("Total payment wth tax : RM%.2f\n**************************************************************************************\n", paymentwtax);
                 
+                green();
                 printf("\nThis screen will close in 10 seconds\n");
+                removeColor();
                 sleep(10);
                 
                 totalpayment=0;
@@ -436,8 +450,12 @@ void staffPage(char name[]) {
     int opt1, confirm;
 
     while (1) {
+        system("clear");
+        pink();
+        printf("\n>Selection Screen>Staff Login>Staff Page\n");
+        removeColor();
         printf("\nWelcome staff: %s\n", name);
-        printf("---MENU---\n1 Add Services\n2 Delete Services\n3 Edit Services\n4 Generate Report\n5 Back to Staff Login\n\nInsert Number: ");
+        printf("\n[1] Add Services\n[2] Delete Services\n[3] Edit Services\n[4] Generate Report\n[5] Back to Staff Login\n\nInsert Number: ");
         scanf("%d",&opt1);
         
         switch(opt1){
@@ -458,7 +476,6 @@ void staffPage(char name[]) {
                 break;
             
             case 5: // exit to homepage
-                printf("Exiting Staff Homepage.\n");
                 return;
                 break;
 
@@ -472,7 +489,10 @@ void addService (void){
 	float tempServDura,tempServPrice;
 	char tempServName[100];
     int emptySlot, option;
-
+    system("clear");
+    pink();
+    printf("\n>Selection Screen>Staff Login>Staff Page\n");
+    removeColor();
     printf("\nADD SERVICE:\n");
     printf("[1] Subscriptions\n");
     printf("[2] Promotions\n");
@@ -481,6 +501,8 @@ void addService (void){
     printf("Enter choice: ");
     scanf("%d", &option);
 
+
+    system("clear");
     switch (option) {
         case 1:
             do {
@@ -508,21 +530,21 @@ void addService (void){
                     break;
                 }
             }
-            
-            printf("Empty slot on #%d\n", emptySlot);
+
             strcpy(subName[emptySlot], ServName);
             subDuration[emptySlot] = ServDura;
             subPrice[emptySlot] = ServPrice;
             
+            system("clear");
             printf("\nService\t\t\tDuration\tPrice\n");
-
             for (i = 0; i<100; i++) {
                 if (subDuration[i] == 0) {
                     break;
                 }
-                printf("Item [%d]:%s \tDuration:%d \tPrice:%d\n",i+1, subName[i], subDuration[i], subPrice[i]);
+                printf("Item [%d]:%-50s \tDuration:%-3d \tPrice:%-3d\n",i+1, subName[i], subDuration[i], subPrice[i]);
             }
-
+            printf("\nReturning in 5 seconds...\n");
+            sleep(5);
             break;
         case 2:
             do {
@@ -550,70 +572,141 @@ void addService (void){
                     break;
                 }
             }
-            
-            printf("Empty slot on #%d\n", emptySlot);
+
             strcpy(promName[emptySlot], ServName);
             promDuration[emptySlot] = ServDura;
             promPrice[emptySlot] = ServPrice;
             
+            system("clear");
             printf("\nService\t\t\tDuration\tPrice\n");
 
             for (i = 0; i<100; i++) {
                 if (promDuration[i] == 0) {
                     break;
                 }
-                printf("Item [%d]:%s \tDuration:%d \tPrice:%d\n",i+1, promName[i], promDuration[i], promPrice[i]);
+                printf("Item [%d]:%-50s \tDuration:%-3d \tPrice:%-3d\n",i+1, promName[i], promDuration[i], promPrice[i]);
             }
+            printf("\nReturning in 5 seconds...\n");
+            sleep(5);
 
             break;
         case 3:
             return;
         default:
             printf("Invalid choice...\n");
+            printf("\nReturning in 5 seconds...\n");
+            sleep(5);
     }
     return;
 }
 
 void delService(void){
-	int delServ;
-	printf("\n-----DELETE SERVICE-----");
-    printf("\nService\t\t\tDuration\tPrice\n");
-    for (i = 0; i<100; i++) { //this part Safrul need to do correction
-        if (subDuration[i] == 0) {
+	int delServ, option, remainder;
+    system("clear");
+    pink();
+    printf("\n>Selection Screen>Staff Login>Staff Page\n");
+    removeColor();
+	printf("\nDelete Service:\n");
+    printf("[1] Subscriptions\n");
+    printf("[2] Promotions\n");
+    printf("[3] Back\n\n");
+
+    printf("Enter choice: ");
+    scanf("%d", &option);
+
+    switch (option) {
+        case 1:
+            printf("\nSubscription\t\t\tDuration\tPrice\n");
+            for (i = 0; i<100; i++) { //this part Safrul need to do correction
+                if (subDuration[i] == 0) {
+                        break;
+                    }
+                printf("Item [%d]:%-50s \tDuration:%-3d \tPrice:%-3d\n",i+1, subName[i], subDuration[i], subPrice[i]);
+            }
+
+            printf("\nChoose Item to delete: ");
+            scanf("%d", &delServ);
+                    
+            printf("\nCONFIRM?\n1 YES\t2 NO\nanswer: ");
+            scanf("%d", &confirm);
+
+            remainder = 100 - delServ;
+                    
+            if(confirm==1){
+                for (int i = delServ; i<remainder; i++) {
+                    if (subDuration[i] == 0) {
+                        strcpy(subName[i-1], "");
+                        subDuration[i-1] = 0;
+                        subPrice[i-1] = 0;
+                        break;
+                    }
+                    strcpy(subName[i-1], subName[i]);
+                    subDuration[i-1] = subDuration[i];
+                    subPrice[i-1] = subPrice[i];
+                }
+
+                system("clear");    
+                printf("\nSubscriptions\t\t\tDuration\tPrice\n");
+                for (i = 0; i<100; i++) {
+                    if (subDuration[i] == 0) {
+                        break;
+                    }
+                    printf("Item [%d]:%-50s \tDuration:%-3d \tPrice:%-3d\n",i+1, subName[i], subDuration[i], subPrice[i]);
+                }
+                printf("\nReturning in 5 seconds...\n");
+                sleep(5);
                 break;
             }
-        printf("Item [%d]:%s \tDuration:%d \tPrice:%d\n",i+1, subName[i], subDuration[i], subPrice[i]);
+        case 2:
+            printf("\nPromotions\t\t\tDuration\tPrice\n");
+            for (i = 0; i<100; i++) { //this part Safrul need to do correction
+                if (promDuration[i] == 0) {
+                        break;
+                    }
+                printf("Item [%d]:%-50s \tDuration:%-3d \tPrice:%-3d\n",i+1, promName[i], promDuration[i], promPrice[i]);
+            }
+
+            printf("\nChoose Item to delete: ");
+            scanf("%d", &delServ);
+                    
+            printf("\nCONFIRM?\n1 YES\t2 NO\nanswer: ");
+            scanf("%d", &confirm);
+
+            remainder = 100 - delServ;
+                    
+            if(confirm==1){
+                for (int i = delServ; i<remainder; i++) {
+                    if (promDuration[i] == 0) {
+                        strcpy(promName[i-1], "");
+                        promDuration[i-1] = 0;
+                        promPrice[i-1] = 0;
+                        break;
+                    }
+                    strcpy(promName[i-1], promName[i]);
+                    promDuration[i-1] = promDuration[i];
+                    promPrice[i-1] = promPrice[i];
+                }
+                
+                system("clear");
+                printf("\nPromotions\t\t\tDuration\tPrice\n");
+                for (i = 0; i<100; i++) {
+                    if (promDuration[i] == 0) {
+                        break;
+                    }
+                    printf("Item [%d]:%-50s \tDuration:%-3d \tPrice:%-3d\n",i+1, promName[i], promDuration[i], promPrice[i]);
+                }
+            }
+            printf("\nReturning in 5 seconds...\n");
+            sleep(5);
+            break;
+        case 3:
+            break;
+        default:
+            printf("Invalid choice...");
+            break;
     }
-
-	printf("\nChoose Item to delete: ");
-	scanf("%d", &delServ);
-			
-	printf("\nCONFIRM?\n1 YES\t2 NO\nanswer: ");
-	scanf("%d", &confirm);
-
-    int remainder = 100 - delServ;
-			
-	if(confirm==1){
-        for (int i = delServ; i<remainder; i++) {
-            if (subDuration[i] == 0) {
-                strcpy(subName[i-1], "");
-                subDuration[i-1] = 0;
-                subPrice[i-1] = 0;
-                break;
-            }
-            strcpy(subName[i-1], subName[i]);
-            subDuration[i-1] = subDuration[i];
-            subPrice[i-1] = subPrice[i];
-        }
-    		
-		printf("\nService\t\t\tDuration\tPrice\n");
-		for (i = 0; i<100; i++) {
-            if (subDuration[i] == 0) {
-                break;
-            }
-    	    printf("Item [%d]:%s \tDuration:%d \tPrice:%d\n",i+1, subName[i], subDuration[i], subPrice[i]);
-    	}
-	}
+    return;
+    
 }
 
 
@@ -621,15 +714,18 @@ void editService(void){
 	int item,edit;
 	char newName[100];
 	float newDura,newPrice;
-	
-	printf("\n-----EDIT SURVICE-----");
+    system("clear");
+	pink();
+    printf("\n>Selection Screen>Staff Login>Staff Page>Edit Service\n");
+    removeColor();
+	printf("\nEdit Service:\n");
 	printf("\nService\t\t\tDuration\tPrice\n");
 	for (i = 0; i<100; i++) { //this part Safrul need to do correction
         if (subDuration[i] == 0) {
                 break;
             }
 
-        printf("Item [%d]:%s \tDuration:%d \tPrice:%d\n",i+1, subName[i], subDuration[i], subPrice[i]);
+        printf("Item [%d]:%-50s \tDuration:%-3d \tPrice:%-3d\n",i+1, subName[i], subDuration[i], subPrice[i]);
 	}
 	
 	printf("\nEnter item to edit:");
@@ -645,7 +741,7 @@ void editService(void){
 		scanf("%s", newName);
 		strcpy(subName[item], newName);
 		
-		printf("Item[%d]:%s Duration:%d Price:%d",item+1, subName[item], subDuration[item], subPrice[item]);
+		printf("Item[%d]:%-50s Duration:%-3d Price:%-3d",item+1, subName[item], subDuration[item], subPrice[item]);
 		
 	}
 	else if(edit==2){
@@ -654,7 +750,7 @@ void editService(void){
 		scanf("%f", &newDura);
 		subDuration[item] = newDura;
 		
-		printf("Item[%d]:%s Duration:%d Price:%d",item+1, subName[item], subDuration[item], subPrice[item]);
+		printf("Item[%d]:%-50s Duration:%-3d Price:%-3d",item+1, subName[item], subDuration[item], subPrice[item]);
 	}
 	else if (edit==3){
 		//edit price
@@ -662,8 +758,9 @@ void editService(void){
 		scanf("%f", &newPrice);
 		subPrice[item] = newPrice;
 		
-		printf("Item[%d]:%s Duration:%d Price:%d",item+1, subName[item], subDuration[item],subPrice[item]);
-		}
+		printf("Item[%d]:%-50s Duration:%-3d Price:%-3d",item+1, subName[item], subDuration[item],subPrice[item]);
+	}
+    system("clear");
 }
 
 void genReport(void){
@@ -671,7 +768,7 @@ void genReport(void){
 	printf("\n-----GENERATE REPORT-----");
 		printf("\nService\t\t\tDuration\tPrice\n");
 		for (i = 0; i<4; i++) { //this part Safrul need to do correction 
-        	    printf("Item [%d]:%s \tDuration:%d \tPrice:%d\n",i+1, subName[i], subDuration[i], subPrice[i]);
+        	    printf("Item [%d]:%-50s \tDuration:%-3d \tPrice:%-3d\n",i+1, subName[i], subDuration[i], subPrice[i]);
 		}
 	
 	printf("\nChoose Item to Generate report(0 for All):");
