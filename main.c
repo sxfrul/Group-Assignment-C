@@ -536,7 +536,9 @@ void addService (void){
             subPrice[emptySlot] = ServPrice;
             
             system("clear");
-            printf("\nService\t\t\tDuration\tPrice\n");
+            pink();
+            printf("\n%-45s\t\t\tDuration\tPrice\n", "Service");
+            removeColor();
             for (i = 0; i<100; i++) {
                 if (subDuration[i] == 0) {
                     break;
@@ -578,7 +580,9 @@ void addService (void){
             promPrice[emptySlot] = ServPrice;
             
             system("clear");
-            printf("\nService\t\t\tDuration\tPrice\n");
+            pink();
+            printf("\n%-45s\t\t\tDuration\tPrice\n", "Service");
+            removeColor();
 
             for (i = 0; i<100; i++) {
                 if (promDuration[i] == 0) {
@@ -616,7 +620,9 @@ void delService(void){
 
     switch (option) {
         case 1:
-            printf("\nSubscription\t\t\tDuration\tPrice\n");
+            pink();
+            printf("\n%-45s\t\t\tDuration\tPrice\n", "Subscription");
+            removeColor();
             for (i = 0; i<100; i++) { //this part Safrul need to do correction
                 if (subDuration[i] == 0) {
                         break;
@@ -645,8 +651,10 @@ void delService(void){
                     subPrice[i-1] = subPrice[i];
                 }
 
-                system("clear");    
-                printf("\nSubscriptions\t\t\tDuration\tPrice\n");
+                system("clear");
+                pink();
+                printf("\n%-45s\t\t\tDuration\tPrice\n", "Subscription");
+                removeColor();
                 for (i = 0; i<100; i++) {
                     if (subDuration[i] == 0) {
                         break;
@@ -658,7 +666,9 @@ void delService(void){
                 break;
             }
         case 2:
-            printf("\nPromotions\t\t\tDuration\tPrice\n");
+            pink();
+            printf("\n%-45s\t\t\tDuration\tPrice\n", "Promotion");
+            removeColor();
             for (i = 0; i<100; i++) { //this part Safrul need to do correction
                 if (promDuration[i] == 0) {
                         break;
@@ -688,7 +698,9 @@ void delService(void){
                 }
                 
                 system("clear");
-                printf("\nPromotions\t\t\tDuration\tPrice\n");
+                pink();
+                printf("\n%-45s\t\t\tDuration\tPrice\n", "Promotion");
+                removeColor();
                 for (i = 0; i<100; i++) {
                     if (promDuration[i] == 0) {
                         break;
@@ -719,7 +731,9 @@ void editService(void){
     printf("\n>Selection Screen>Staff Login>Staff Page>Edit Service\n");
     removeColor();
 	printf("\nEdit Service:\n");
-	printf("\nService\t\t\tDuration\tPrice\n");
+    pink();
+	printf("\n%-45s\t\t\tDuration\tPrice\n", "Service");
+    removeColor();
 	for (i = 0; i<100; i++) { //this part Safrul need to do correction
         if (subDuration[i] == 0) {
                 break;
@@ -732,7 +746,7 @@ void editService(void){
 	scanf("%d", &item);
 	item--;
 	
-	printf("which part to edit?\n1.Name\n2.Duration\n3.Price\nanswer:");
+	printf("Edit:\n1.Name\n2.Duration\n3.Price\nanswer:");
 	scanf("%d", &edit);
 
 	if (edit==1){

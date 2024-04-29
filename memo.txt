@@ -1,0 +1,3 @@
+- standardize returning color, message
+- store personal info for customer?
+- refine report generation
