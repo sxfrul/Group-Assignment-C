@@ -13,12 +13,14 @@ char subName[100][99] = {"Sports 4 Life", "Midnight Blockbuster", "Premium Movie
 int subDuration[100] = {30, 30, 30}; // in months or etc
 int subPrice[100] = {30, 35, 40}; // in RM
 int subQuantity[100] = {};
+int subPurchased[100] = {};
 
 // PROMOTIONS
 char promName[100][99] = {"iQIYI Premium VIP Pass", "Home of Kids Day-pass", "MasterChef US Pass"};
 int promDuration[100] = {1, 30, 30}; // in months or etc
 int promPrice[100] = {5, 35, 35}; // in RM
 int promQuantity[100] = {};
+int promPurchased[100] = {};
 
 /* CUSTOMER PAGE */
 // CONSTANTS
@@ -283,6 +285,7 @@ void payment() {
                 for (int i = 0; i<100; i++) {
                     if (subQuantity[i] != 0) {
                         printf("%-50s \t(%3d days) \tRM %3d\n", subName[i], subDuration[i] * subQuantity[i], subPrice[i]*subQuantity[i]);
+                        subPurchased[i] += subQuantity[i];
                         subQuantity[i] = 0;
                     }
                 }
@@ -290,6 +293,7 @@ void payment() {
                 for (int i = 0; i<100; i++) {
                     if (promQuantity[i] != 0) {
                         printf("%-50s \t(%3d days) \tRM %3d\n", promName[i], promDuration[i] * promQuantity[i], promPrice[i]*promQuantity[i]);
+                        promPurchased[i] += promQuantity[i];
                         promQuantity[i] = 0;
                     }
                 }
@@ -779,31 +783,41 @@ void editService(void){
 
 void genReport(void){
 	int item,genRep,totalPurc, sale=4;
-	printf("\n-----GENERATE REPORT-----");
-		printf("\nService\t\t\tDuration\tPrice\n");
-		for (i = 0; i<4; i++) { //this part Safrul need to do correction 
-        	    printf("Item [%d]:%-50s \tDuration:%-3d \tPrice:%-3d\n",i+1, subName[i], subDuration[i], subPrice[i]);
-		}
+	printf("\n-----GENERATE REPORT-----\n");
+    for (int i = 0; i<100; i++) { //this part Safrul need to do correction
+        if (subDuration[i] == 0) {
+                break;
+        }
+        printf("Item [%d]:%-50s\n",i+1, subName[i]);
+    }
 	
 	printf("\nChoose Item to Generate report(0 for All):");
 	scanf("%d", &genRep);
 	
-	item=genRep;
-	
-	if(genRep==1||genRep==2||genRep==3){
-		genRep--;
-		totalPurc= subPrice[genRep]*sale;
-			printf("\n-----REPORT ON ITEM[%d]-----\n",item);
-			printf("Total Item Sale for Item[%d] is %d item\n",item, sale);
-			printf("Total Purchase for Item[%d] is RM%d\n",item, totalPurc);
+    // FIND EMPTY
+    int emptySlot;
+    for (emptySlot = 0; emptySlot<100; emptySlot++) {
+        if (promDuration[emptySlot] == 0) {
+            break;
+        }
+    }
+
+	if(genRep == 0) {
+        for (int i = 0; i<100; i++) { //this part Safrul need to do correction
+            if (subDuration[i] == 0) {
+                    break;
+            }
+            printf("\n-----REPORT ON ITEM[%d]-----\n",i+1);
+            printf("Purchase Count: %d\n", subPurchased[i]);
+            printf("Total Sale: RM%d\n", subPrice[i] * subPurchased[i]);
+        }
+        sleep(5);
 	}
-	else if(genRep==0){
-		for(item=0;item<4;item++){
-			totalPurc= subPrice[item]*sale;
-			printf("\n-----REPORT ON ITEM[%d]-----\n",item+1);
-			printf("Total Item Sale for Item[%d] is %d item\n",item+1, sale);
-			printf("Total Purchase for Item[%d] is RM%d\n",item+1, totalPurc);
-		}
+	else {
+            printf("\n-----REPORT ON ITEM[%d]-----\n",genRep);
+            printf("Purchase Count: %d\n", subPurchased[genRep-1]);
+            printf("Total Sale: RM%d\n", subPrice[genRep-1] * subPurchased[genRep-1]);
+            sleep(5);
 	}
 
 }
