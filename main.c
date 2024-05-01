@@ -64,6 +64,7 @@ void genReport();
 
 // Hashmap or Dict
 struct User {
+    char userType[MAX_USERNAME_LENGTH];
     char firstName[MAX_FIRSTNAME_LENGTH];
     char lastName[MAX_LASTNAME_LENGTH];
     char username[MAX_USERNAME_LENGTH];
@@ -95,14 +96,14 @@ void green() {
 // Dummy function for customerpage
 
 //start of fakhrul part
-void customerPage(char username[], char firstName[], char lastName[]) {
+void customerPage(char username[], char firstName[], char lastName[], char userType[]) {
     int option;
     while (1) {
         system("clear");
         pink();
         printf("\n>Selection Screen>Customer Login>Customer Page\n");
         removeColor();
-        printf("\nWelcome %s %s (%s)!\nWhat can we do for you?", firstName, lastName, username);
+        printf("\nWelcome %s %s (%s: \033[0;32m%s Account\033[0m)!\nWhat can we do for you?", firstName, lastName, username, userType);
         printf("\n\n[1] Subscriptions\n[2] Promotions\n[3] Payment\n[4] Back to User Select\n");
         printf("\n-------------------------------------------");
         printf("\nInsert the number : ");
@@ -346,7 +347,7 @@ void signIn() {
             sleep(3);
             removeColor();
 
-            customerPage(username, users[i].firstName, users[i].lastName);
+            customerPage(username, users[i].firstName, users[i].lastName, users[i].userType);
             return;
         }
     }
@@ -362,6 +363,7 @@ void signIn() {
 void signUp() {
     char password[20];
     char confirmPassword[20];
+    char businessOption;
 
     system("clear");
 
@@ -401,6 +403,24 @@ void signUp() {
 
     printf("Confirm password: ");
     scanf("%s", confirmPassword);
+
+    do {
+        printf("Register as business account? (Y/n): ");
+        scanf(" %c", &businessOption);
+
+        if (businessOption != 'y' && businessOption != 'n' && businessOption != 'Y' && businessOption != 'N') {
+            red();
+            printf("Invalid, please retry...\n");
+            removeColor();
+        }
+    } while(businessOption != 'y' && businessOption != 'n' && businessOption != 'Y' && businessOption != 'N');
+
+    if (businessOption == 'y' || businessOption == 'Y') {
+        strcpy(users[numUsers].userType, "Business");
+    }
+    else {
+        strcpy(users[numUsers].userType, "Residential");
+    }
 
     if (strcmp(password, confirmPassword) == 0) {
         strcpy(users[numUsers].password, confirmPassword);
