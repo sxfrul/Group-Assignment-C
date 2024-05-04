@@ -264,7 +264,10 @@ void payment() {
     {
         case 1:
             if (totalpayment == 0) {
+                red();
                 printf("\nYou have not added any product.\n");
+                printf("Returning to homepage...\n");
+                sleep(2);
                 break;
             }
 

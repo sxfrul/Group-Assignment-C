@@ -1,1 +1,1 @@
-#include <stdlib.h>
+totalpayment += subPrice[optionActual];
