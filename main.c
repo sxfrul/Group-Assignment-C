@@ -97,7 +97,7 @@ void green() {
 
 //start of fakhrul part
 void customerPage(char username[], char firstName[], char lastName[], char userType[]) {
-    int option;
+    char option;
     while (1) {
         system("clear");
         pink();
@@ -107,22 +107,24 @@ void customerPage(char username[], char firstName[], char lastName[], char userT
         printf("\n\n[1] Subscriptions\n[2] Promotions\n[3] Payment\n[4] Back to User Select\n");
         printf("\n-------------------------------------------");
         printf("\nInsert the number : ");
-        scanf("%d", &option);
+        scanf(" %c", &option);
         
         switch (option) {
-            case 1:
+            case '1':
                 subscription();
                 break;
-            case 2:
+            case '2':
                 promotion();
                 break;
-            case 3:
+            case '3':
                 payment();
                 break;
-            case 4:
+            case '4':
                 return;
             default:
+                red();
                 printf("\nInvalid choice.");
+                removeColor();
         }
     }
 }
@@ -346,7 +348,7 @@ void signIn() {
         if (strcmp(users[i].username, username) == 0 && strcmp(users[i].password, password) == 0) {
             green();
             printf("\nLogin successful!\n");
-            printf("Redircting to customer page...\n");
+            printf("Redirecting to customer page...\n");
             sleep(3);
             removeColor();
 
@@ -438,6 +440,7 @@ void signUp() {
     }
     else {
         red();
+        printf("\nPassword does not match Confirm Password.");
         printf("\nSignup unsuccessful...\n");
         sleep(3);
         removeColor();
