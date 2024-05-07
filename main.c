@@ -15,6 +15,7 @@
 char subName[100][99] = {"Astro TV Pack", "Astro WiFi Plan", "Premium Movie+"};
 int subDuration[100] = {30, 30, 30}; // in months or etc
 int subPrice[100] = {30, 35, 40}; // in RM
+
 int subQuantity[100] = {};
 int subPurchased[100] = {};
 
@@ -22,6 +23,7 @@ int subPurchased[100] = {};
 char promName[100][99] = {"iQIYI Premium VIP Pass", "Home of Kids Day-pass", "MasterChef US Pass"};
 int promDuration[100] = {1, 30, 30}; // in months or etc
 int promPrice[100] = {5, 35, 35}; // in RM
+
 int promQuantity[100] = {};
 int promPurchased[100] = {};
 
@@ -58,8 +60,8 @@ int i,confirm;
 char ServName[100];
 float ServDura,ServPrice;
 
-void addService ();
-void delService ();
+void addService();
+void delService();
 void editService();
 void genReport();
 
@@ -905,7 +907,7 @@ void genReport(void){
         case 1:
             system("clear");
             printf("Item [0]: All\n");
-            for (int i = 0; i<100; i++) { //this part Safrul need to do correction
+            for (int i = 0; i<100; i++) { 
                 if (subDuration[i] == 0) {
                         break;
                 }
@@ -923,7 +925,7 @@ void genReport(void){
             }
 
             if(genRep == 0) {
-                for (int i = 0; i<100; i++) { //this part Safrul need to do correction
+                for (int i = 0; i<100; i++) { 
                     if (subDuration[i] == 0) {
                             break;
                     }
@@ -943,7 +945,7 @@ void genReport(void){
         case 2:
             system("clear");
             printf("Item [0]: All\n");
-            for (int i = 0; i<100; i++) { //this part Safrul need to do correction
+            for (int i = 0; i<100; i++) { 
                 if (subDuration[i] == 0) {
                         break;
                 }
@@ -953,7 +955,7 @@ void genReport(void){
             printf("\nWhich item would you like to generate report?: ");
             scanf("%d", &genRep);
             
-            // FIND EMPTY
+            // FIND EMPTY SLOT
             for (emptySlot = 0; emptySlot<100; emptySlot++) {
                 if (promDuration[emptySlot] == 0) {
                     break;
@@ -961,7 +963,7 @@ void genReport(void){
             }
 
             if(genRep == 0) {
-                for (int i = 0; i<100; i++) { //this part Safrul need to do correction
+                for (int i = 0; i<100; i++) { 
                     if (promDuration[i] == 0) {
                             break;
                     }
@@ -987,7 +989,7 @@ void genReport(void){
                 }
             }
 
-            for (int i = 0; i<100; i++) { //this part Safrul need to do correction
+            for (int i = 0; i<100; i++) { 
                 if (subDuration[i] == 0) {
                         break;
                 }
@@ -995,7 +997,7 @@ void genReport(void){
                 printf("Purchase Count: %d\n", subPurchased[i]);
                 printf("Total Sale: RM%d\n", subPrice[i] * subPurchased[i]);
             }
-            for (int i = 0; i<100; i++) { //this part Safrul need to do correction
+            for (int i = 0; i<100; i++) { 
                 if (promDuration[i] == 0) {
                         break;
                 }
@@ -1142,7 +1144,7 @@ int main()
 {
     char start;
 
-    appTitle(); //subroutine to Welcome Message
+    appTitle(); //subroutine to application Title
 
     printf("Welcome to Astro Application");
     printf("\nPress enter to continue... ");
