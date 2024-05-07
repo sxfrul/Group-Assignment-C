@@ -27,6 +27,17 @@ int promPrice[100] = {5, 35, 35}; // in RM
 int promQuantity[100] = {};
 int promPurchased[100] = {};
 
+// LOGIN & SIGNUPS
+void signIn(void);
+void signUp(void);
+
+void staffSignIn(void);
+void staffLoginScreen(void);
+
+// MISCS
+void selectionScreen(void);
+void appTitle(void);
+
 /* CUSTOMER PAGE */
 // CONSTANTS
 float tax = 0.06;
@@ -60,10 +71,10 @@ int i,confirm;
 char ServName[100];
 float ServDura,ServPrice;
 
-void addService();
-void delService();
-void editService();
-void genReport();
+void addService(void);
+void delService(void);
+void editService(void);
+void genReport(void);
 
 // Hashmap or Dict
 struct User {
@@ -1059,7 +1070,7 @@ void staffSignIn() {
     staffPage(username);
 }
 
-void staffLogin() {
+void staffLoginScreen() {
     char action;
     
     while (1) {
