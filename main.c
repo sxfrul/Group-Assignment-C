@@ -2,6 +2,7 @@
 #include <string.h>
 #include <stdlib.h>
 #include <unistd.h>
+#include <time.h>
 
 #define MAX_USERS 10
 #define MAX_USERNAME_LENGTH 20
@@ -11,7 +12,7 @@
 
 // SERVICE DATABASE
 // SUBSCRIPTIONS
-char subName[100][99] = {"Sports 4 Life", "Midnight Blockbuster", "Premium Movie+"};
+char subName[100][99] = {"Astro TV Pack", "Astro WiFi Plan", "Premium Movie+"};
 int subDuration[100] = {30, 30, 30}; // in months or etc
 int subPrice[100] = {30, 35, 40}; // in RM
 int subQuantity[100] = {};
@@ -49,7 +50,7 @@ priceProm3 = 35;
 
 
 void subscription(void);
-void payment(void);
+void payment(char [], char[]);
 void promotion(void);
 
 /* STAFF PAGE */
@@ -117,7 +118,7 @@ void customerPage(char username[], char firstName[], char lastName[], char userT
                 promotion();
                 break;
             case '3':
-                payment();
+                payment(firstName, lastName);
                 break;
             case '4':
                 return;
@@ -139,8 +140,7 @@ void subscription() {
         printf("\n>Selection Screen>Customer Login>Customer Page>Subscriptions\n");
         removeColor();
         printf("\nSubscriptions available:\n");
-        // printf("\n>>>Subscriptions available!<<<\n\n[1]-Sports 4 life! (30 days) - RM30");
-        // printf("\n[2]-Midnight Blockbuster (30 days) - RM 35\n[3]-Premium Movie+ (30 days) - RM 40\n[4]-Return\n");
+
         for (i = 0; i<100; i++) {
             if (subDuration[i] == 0) {
                 break;
@@ -197,8 +197,6 @@ void promotion() {
         printf("\n>Selection Screen>Customer Login>Customer Page>Promotions\n");
         removeColor();
         printf("\nPromotions available:\n");
-        // printf("\n>>>Subscriptions available!<<<\n\n[1]-Sports 4 life! (30 days) - RM30");
-        // printf("\n[2]-Midnight Blockbuster (30 days) - RM 35\n[3]-Premium Movie+ (30 days) - RM 40\n[4]-Return\n");
         for (i = 0; i<100; i++) {
             if (promDuration[i] == 0) {
                 break;
@@ -245,7 +243,7 @@ void promotion() {
     return;
 }
 
-void payment() {
+void payment(char firstName[], char lastName[]) {
     float taxpayment, paymentwtax;
     int option;
     int bankNum;
@@ -281,6 +279,12 @@ void payment() {
                 taxpayment = tax * totalpayment;
                 paymentwtax = taxpayment + totalpayment;
                 invoiceCount++;
+
+                // PREREQUISITES FOR TIME
+                struct tm* ptr;
+                time_t t;
+                t = time(NULL);
+                ptr = localtime(&t);
                 
                 system("clear");
                 green();
@@ -288,7 +292,8 @@ void payment() {
                 removeColor();
                 printf("\n\nInvoice:\n");
                 printf("\n**************************************************************************************\n\n");
-                printf("Invoice no : %05d\nBill to : Astro Company Ltd\n", invoiceCount);
+                printf("Invoice no : %05d\nBill to : %s %s\n", invoiceCount, firstName, lastName);
+                printf("Date: %s", asctime(ptr)); //PRINTS TIME
                 printf("\n**************************************************************************************\n\n");
                 printf("%-56s[Duration]\t[Price]\n", "[Item]");
                 
@@ -531,7 +536,7 @@ void addService (void){
     int emptySlot, option;
     system("clear");
     pink();
-    printf("\n>Selection Screen>Staff Login>Staff Page\n");
+    printf("\n>Selection Screen>Staff Login>Staff Page>Add Service\n");
     removeColor();
     printf("\nADD SERVICE:\n");
     printf("[1] Subscriptions\n");
@@ -648,7 +653,7 @@ void delService(void){
 	int delServ, option, remainder;
     system("clear");
     pink();
-    printf("\n>Selection Screen>Staff Login>Staff Page\n");
+    printf("\n>Selection Screen>Staff Login>Staff Page>Delete Service\n");
     removeColor();
 	printf("\nDelete Service:\n");
     printf("[1] Subscriptions\n");
@@ -884,6 +889,9 @@ void editService(void){
 void genReport(void){
 	int item,genRep,totalPurc, sale=4, emptySlot;
     system("clear");
+    pink();
+    printf("\n>Selection Screen>Staff Login>Staff Page>Generate Report\n");
+    removeColor();
 	printf("\nGenerate report:\n\n");
     printf("[1] Subscriptions\n");
     printf("[2] Promotions\n");
